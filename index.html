@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#155eef">
+  <title>پخش‌یار | مدیریت پخش و ویزیتوری</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header><div><small>سامانه مدیریت پخش</small><h1>پخش‌یار</h1></div><span id="today"></span></header>
+<nav>
+  <button class="tab active" data-view="dashboard">خانه</button>
+  <button class="tab" data-view="products">کالاها و انبار</button>
+  <button class="tab" data-view="orders">سفارش‌ها</button>
+  <button class="tab" data-view="reports">گزارش‌ها</button>
+</nav>
+<main>
+  <section id="dashboard" class="view">
+    <h2>خلاصه امروز</h2>
+    <div class="stats">
+      <article><small>تعداد کالا</small><strong id="s-products">۰</strong></article>
+      <article><small>تعداد سفارش</small><strong id="s-orders">۰</strong></article>
+      <article><small>جمع فروش ثبت‌شده</small><strong id="s-sales">۰ تومان</strong></article>
+    </div>
+    <p class="notice">اطلاعات این نسخه آزمایشی روی همین دستگاه ذخیره می‌شود. همگام‌سازی آنلاین و ورود کاربران هنوز به تنظیم پایگاه داده و سرور نیاز دارد.</p>
+  </section>
+  <section id="products" class="view hidden">
+    <h2>کالاها و موجودی انبار</h2>
+    <form id="product-form" class="panel">
+      <label>نام کالا<input id="p-name" required placeholder="مثلاً کیک خانواده"></label>
+      <div class="two">
+        <label>تعداد کارتن<input id="p-cartons" type="number" min="0" value="0" required></label>
+        <label>عدد در هر کارتن<input id="p-per" type="number" min="1" value="1" required></label>
+      </div>
+      <div class="two">
+        <label>قیمت خرید هر عدد (تومان)<input id="p-buy" type="number" min="0" value="0"></label>
+        <label>قیمت پیشنهادی فروش (تومان)<input id="p-sell" type="number" min="0" value="0"></label>
+      </div>
+      <button class="primary">ثبت کالا</button>
+    </form>
+    <div id="product-list"></div>
+  </section>
+  <section id="orders" class="view hidden">
+    <h2>ثبت سفارش</h2>
+    <form id="order-form" class="panel">
+      <label>نام مشتری / مغازه<input id="o-customer" required placeholder="نام مشتری"></label>
+      <label>کالا<select id="o-product" required></select></label>
+      <div class="two">
+        <label>تعداد کارتن<input id="o-cartons" type="number" min="0" value="0"></label>
+        <label>تعداد عددی اضافه<input id="o-units" type="number" min="0" value="0"></label>
+      </div>
+      <label>قیمت فروش هر عدد (تومان)<input id="o-price" type="number" min="0" value="0"></label>
+      <button class="primary">ثبت سفارش و کسر از انبار</button>
+    </form>
+    <div id="order-list"></div>
+  </section>
+  <section id="reports" class="view hidden">
+    <h2>گزارش کلی</h2><div class="stats">
+      <article><small>جمع خرید موجودی</small><strong id="r-buy">۰ تومان</strong></article>
+      <article><small>جمع فروش سفارش‌ها</small><strong id="r-sales">۰ تومان</strong></article>
+      <article><small>سود ناخالص سفارش‌ها</small><strong id="r-profit">۰ تومان</strong></article>
+    </div>
+    <button class="secondary" onclick="window.print()">چاپ گزارش</button>
+  </section>
+</main>
+<footer>نسخه شروع پروژه — پخش‌یار</footer>
+<script src="app.js"></script>
+</body></html>
