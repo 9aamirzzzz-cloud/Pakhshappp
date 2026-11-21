@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -17,7 +18,7 @@ button{background:#087e67;color:white;border:0;font-weight:bold}
 <div class="box">
 <h2>پخش‌یار</h2>
 <p>بررسی اتصال به پایگاه داده</p>
-<input id="key" type="password" placeholder="کلید عمومی Supabase">
+<input id="key" type="text" placeholder="کلید عمومی Supabase">
 <button onclick="testConnection()">بررسی اتصال</button>
 <div id="result">آماده بررسی</div>
 </div>
@@ -27,23 +28,34 @@ const SUPABASE_URL="https://cmzxrfscalabffgirauk.supabase.co";
 async function testConnection(){
  const key=document.getElementById("key").value.trim();
  const result=document.getElementById("result");
+
  if(!key){
   result.textContent="کلید عمومی را وارد کن.";
   return;
  }
- result.textContent="در حال بررسی...";
+
+ if(!key.startsWith("sb_publishable_")){
+  result.textContent="کلید واردشده کلید عمومی نیست. کلید Publishable را وارد کن.";
+  return;
+ }
+
+ result.textContent="در حال بررسی اتصال...";
+
  try{
   const response=await fetch(
-   SUPABASE_URL+"/rest/v1/",
-   {headers:{
-    "apikey":key,
-    "Authorization":"Bearer "+key
-   }}
+   SUPABASE_URL+"/auth/v1/health",
+   {headers:{"apikey":key}}
   );
+
   const data=await response.text();
-  result.textContent="کد پاسخ: "+response.status+"\n"+data;
+
+  if(response.ok){
+   result.textContent="اتصال موفق بود.\nپایگاه داده در دسترس است.";
+  }else{
+   result.textContent="خطای اتصال: "+response.status+"\n"+data;
+  }
  }catch(error){
-  result.textContent="خطای اتصال: "+error.message;
+  result.textContent="خطای اینترنت یا اتصال: "+error.message;
  }
 }
 </script>
