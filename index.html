@@ -10,18 +10,17 @@ body{font-family:tahoma;background:#f2f5f8;margin:0;padding:20px;color:#222}
 h2{text-align:center;color:#087e67}
 input,button{width:100%;box-sizing:border-box;padding:13px;margin:8px 0;border:1px solid #ccc;border-radius:8px;font-size:15px}
 button{background:#087e67;color:white;border:0;font-weight:bold}
-#result{white-space:pre-wrap;direction:rtl;background:#f5f5f5;padding:12px;border-radius:8px;overflow-wrap:anywhere}
+#result{white-space:pre-wrap;background:#f5f5f5;padding:12px;border-radius:8px;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
 <div class="box">
 <h2>پخش‌یار</h2>
-<p>آزمایش اتصال به پایگاه داده</p>
-<input id="key" type="password" placeholder="کلید عمومی Supabase را وارد کن">
+<p>بررسی اتصال به پایگاه داده</p>
+<input id="key" type="password" placeholder="کلید عمومی Supabase">
 <button onclick="testConnection()">بررسی اتصال</button>
 <div id="result">آماده بررسی</div>
 </div>
-
 <script>
 const SUPABASE_URL="https://cmzxrfscalabffgirauk.supabase.co";
 
@@ -29,10 +28,10 @@ async function testConnection(){
  const key=document.getElementById("key").value.trim();
  const result=document.getElementById("result");
  if(!key){
-  result.textContent="لطفاً کلید عمومی را وارد کن.";
+  result.textContent="کلید عمومی را وارد کن.";
   return;
  }
- result.textContent="در حال بررسی اتصال...";
+ result.textContent="در حال بررسی...";
  try{
   const response=await fetch(
    SUPABASE_URL+"/rest/v1/",
@@ -42,13 +41,9 @@ async function testConnection(){
    }}
   );
   const data=await response.text();
-  if(response.ok){
-   result.textContent="اتصال برقرار شد.\nپاسخ سرور:\n"+data;
-  }else{
-   result.textContent="سرور پاسخ داد، اما خطا وجود دارد.\nکد خطا: "+response.status+"\n"+data;
-  }
+  result.textContent="کد پاسخ: "+response.status+"\n"+data;
  }catch(error){
-  result.textContent="اتصال برقرار نشد:\n"+error.message;
+  result.textContent="خطای اتصال: "+error.message;
  }
 }
 </script>
